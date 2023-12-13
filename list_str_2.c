@@ -1,121 +1,74 @@
 #include "shell.h"
 
 /**
- * print_list - Prints all elements of a list_t linked list.
- * @head:  Pointer to the first node of the list.
- *
- * Return: Number of nodes in the list
+ * SetInfo - Initializes the info_t the argument vector.
+ * @info_struct: Pointer to the info_t struct.
+ * @arg_vector: Argument vector (av).
  */
-size_t print_list(const list_t *head)
+void SetInfo(info_t *info_struct, char **arg_vector)
 {
-	size_t in = 0;
+	int l = 0;
 
-	while (head)
+	info_struct->fname = arg_vector[0];
+	if (info_struct->arg)
 	{
-	    _puts(convert_number(h->num, 10, 0));
-		_putchar(':');
-		_putchar(' ');
-		_puts(h->str ? h->str : "(nil)");
-		_puts("\n");
-		h = h->next;
-		in++;
-	}
-	return (in);
-}
-
-/**
- * get_node_index - Gets the index of a node within a linked list.
- * @hd: Pointer to the list head.
- * @nd: Pointer to the node whose index needs to be found.
- *
- * Return: Index of the node (starting from 0) or -1 if node not found.
- */
-ssize_t get_node_index(list_t *hd, list_t *nd)
-{
-	size_t count = 0;
-
-	while (hd)
-	{
-		if (hd == nd)
-			return (count);
-		hd = hd->next;
-		count++;
-	}
-	return (-1);
-}
-
-/**
- * list_len - determines length of linked list
- * @q: Pointer to the first node of the list.
- *
- * Return: Number of nodes in the list.
- */
-size_t list_len(const list_t *q)
-{
-	size_t count = 0;
-
-	while (q)
-	{
-		q = q->next;
-		count++;
-	}
-	return (count);
-}
-
-/**
- * list_to_strings - Converts the 'str'  in a link list to array of strings.
- * @h: Pointer to the first node of the list.
- *
- * Return: Array of strings, NULL on failure.
- */
-char **list_to_strings(list_t *h)
-{
-	list_t *node = h;
-	size_t in = list_len(h), jl;
-	char **str_s;
-	char *str_o;
-
-	if (!h || !in)
-		return (NULL);
-	str_s = malloc(sizeof(char *) * (in + 1));
-	if (!str_s)
-		return (NULL);
-	for (in = 0; node; node = node->next, in++)
-	{
-		str_o = malloc(_strlen(node->str_o) + 1);
-		if (!str_o)
+		info_struct->argv = strtow(info_struct->arg, " \t");
+		if (!info_struct->argv)
 		{
-			for (j = 0; jl < in; jl++)
-				free(str_s[jl]);
-			free(str_s);
-			return (NULL);
-		}
 
-		str_o = _strcpy(str_o, node->str_o);
-		str_s[in] = str;
+			info_struct->argv = malloc(sizeof(char *) * 2);
+			if (info_struct->argv)
+			{
+				info_struct->argv[0] = _strdup(info_struct->arg);
+				info_struct->argv[1] = NULL;
+			}
+		}
+		for (l = 0; info_struct->argv && info_struct->argv[l]; l++)
+			;
+		info_struct->argc = l;
+
+		replace_alias(info_struct);
+		replace_vars(info_struct);
 	}
-	str_s[in] = NULL;
-	return (str_s);
 }
 
 /**
- * node_starts_with - Ret node whose string starts  a given prefix
- * @no: Pointer to the list head.
- * @pre: String prefix to match.
- * @c_n: The next character after the prefix to match -1 to ignore
- *
- * Return: match node or null
+ * ClearInfo - Initializes of info_t struct to NULL or 0.
+ * @info_struct: Pointer to the info_t struct to be cleared.
  */
-list_t *node_starts_with(list_t *no, char *pre, char c_n)
+void ClearInfo(info_t *info_struct)
 {
-	char *p = NULL;
+	info_struct->arg = NULL;
+	info_struct->argv = NULL;
+	info_struct->path = NULL;
+	info_struct->argc = 0;
+}
 
-	while (no)
+/**
+ * FreeInfo - Frees specific fields in the info_t struct.
+ *  @info_struct: Pointer to the info_t struct.
+ * @all: true if freeing all fields
+ */
+void FreeInfo(info_t *info_struct, int all)
+{
+	ffree(info_struct->argv);
+	info_struct->argv = NULL;
+	info_struct->path = NULL;
+	if (all)
 	{
-		p = starts_with(no->str, pre);
-		if (p && ((c_n == -1) || (*p == c_n)))
-			return (no);
-		no = no->next;
+		if (!info_struct->cmd_buf)
+			free(info_struct->arg);
+		if (info_struct->env)
+			free_list(&(info_struct->env));
+		if (info_struct->history)
+			free_list(&(info_struct->history));
+		if (info_struct->alias)
+			free_list(&(info_struct->alias));
+		ffree(info_struct->environ);
+			info_struct->environ = NULL;
+		bfree((void **)info_struct->cmd_buf);
+		if (info_struct->readfd > 2)
+			close(info_struct->readfd);
+		_putchar(BUF_FLUSH);
 	}
-	return (NULL);
 }

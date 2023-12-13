@@ -1,25 +1,25 @@
 #include "shell.h"
 
 /**
- * _strcpy - function that copies a string
- * @dest: the destination for the copied str.
- * @src: the soucrce string.
+ * _putchar - Writes the character c to stdout
+ * @c: The character to print
  *
- * Return: pointer to destination
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-char *_strcpy(char *dest, char *src)
+int _putchar(char c)
 {
-	int k = 0;
+	static int p;
+	static char buf[WRITE_BUF_SIZE];
 
-	if (dest == src || src == 0)
-		return (dest);
-	while (src[k])
+	if (c == BUF_FLUSH || p >= WRITE_BUF_SIZE)
 	{
-		dest[k] = src[k];
-		k++;
+		write(1, buf, p);
+		p = 0;
 	}
-	dest[k] = 0;
-	return (dest);
+	if (c != BUF_FLUSH)
+		buf[p++] = c;
+	return (1);
 }
 
 /**
@@ -46,6 +46,7 @@ char *_strdup(const char *s)
 	return (ret);
 }
 
+
 /**
  *_puts - function prints an input string
  *@st: the string to be printed
@@ -66,23 +67,23 @@ void _puts(char *st)
 }
 
 /**
- * _putchar - Writes the character c to stdout
- * @c: The character to print
+ * _strcpy - function that copies a string
+ * @dest: the destination for the copied str.
+ * @src: the soucrce string.
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: pointer to destination
  */
-int _putchar(char c)
+char *_strcpy(char *dest, char *src)
 {
-	static int p;
-	static char buf[WRITE_BUF_SIZE];
+	int k = 0;
 
-	if (c == BUF_FLUSH || p >= WRITE_BUF_SIZE)
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[k])
 	{
-		write(1, buf, p);
-		p = 0;
+		dest[k] = src[k];
+		k++;
 	}
-	if (c != BUF_FLUSH)
-		buf[p++] = c;
-	return (1);
+	dest[k] = 0;
+	return (dest);
 }

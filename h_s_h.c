@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * fork_cmd - Executes a command found in the PATH environment variable.
+ * ForkCmd- Executes a command found in the PATH environment variable.
  * @information: the parameter & return info struct
  *
  * Return: void
  */
-void fork_cmd(info_t *information)
+void ForkCmd(info_t *information)
 {
 	pid_t child_pid;
 
@@ -67,13 +67,13 @@ void find_cmd(info_t *information)
 	if (path)
 	{
 		information->path = path;
-		fork_cmd(information);
+		ForkCmd(information);
 	}
 	else
 	{
 		if ((interactive(information) || _getenv(information, "PATH=")
 			|| information->argv[0][0] == '/') && is_cmd(information, information->argv[0]))
-			fork_cmd(information);
+			ForkCmd(information);
 		else if (*(information->arg) != '\n')
 		{
 			information->status = 127;
@@ -83,7 +83,7 @@ void find_cmd(info_t *information)
 }
 
 /**
- * find_builtin - Finds and executes if available.
+ * FindBuiltIn - Finds and executes if available.
  * @information: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
@@ -91,7 +91,7 @@ void find_cmd(info_t *information)
  *			1 if builtin found but not successful,
  *			-2 if builtin signals exit()
  */
-int find_builtin(info_t *information)
+int FindBuiltIn(info_t *information)
 {
 	int i, builtinret = -1;
 	builtin_table builtInTabl[] = {
@@ -117,7 +117,7 @@ int find_builtin(info_t *information)
 }
 
 /**
- * find_builtin - Finds and executes if available.
+ * FindBuiltIn - Finds and executes if available.
  * @information: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
@@ -125,7 +125,7 @@ int find_builtin(info_t *information)
  *			1 if builtin found but not successful,
  *			-2 if builtin signals exit()
  */
-int find_builtin(info_t *information)
+int FindBuiltIn(info_t *information)
 {
 	int i, builtinret = -1;
 	builtin_table builtInTabl[] = {
@@ -149,4 +149,3 @@ int find_builtin(info_t *information)
 		}
 	return (builtinret);
 }
-

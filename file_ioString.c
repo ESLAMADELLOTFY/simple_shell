@@ -1,16 +1,16 @@
 #include "shell.h"
 
 /**
- *Function: write_history - Saves command history to a file
+ *Function: WriteHistory - Saves command history to a file
  *@information: The parameter struct
  *
  *Description: Creates a file or appends to an existing file for command hitory
  *Return: 1 on success, else -1
  */
-int write_history(info_t *information)
+int WriteHistory(info_t *information)
 {
 	ssize_t file_descriptor;
-	char *file_name = get_history_filepath(information);
+	char *file_name = GetHistoryFile(information);
 	list_t *node = NULL;
 
 	if (!file_name)
@@ -32,14 +32,14 @@ int write_history(info_t *information)
 }
 
 /**
- *Function: build_history_list - Adds an entry to a history linked list
+ *Function: BuildHistoryList - Adds an entry to a history linked list
  *@information: Structure containing potential arguments. Used to maintain
  *@buf: Buffer
  *@line_count: The history line count, histcount
  *
  *Return: Always 0
  */
-int build_history_list(info_t *information, char *buf, int line_count)
+int BuildHistoryList(info_t *information, char *buf, int line_count)
 {
 	list_t *node = NULL;
 
@@ -53,18 +53,18 @@ int build_history_list(info_t *information, char *buf, int line_count)
 }
 
 /**
- *Function: read_history - Reads command history from file
+ *Function: ReadHistory - Reads command history from file
  *@information: The parameter struct
  *
  *Description: Retrieves command history from a file
  *Return: histcount on success, 0 otherwise
  */
-int read_history(info_t *information)
+int ReadHistory(info_t *information)
 {
 	int i, last = 0, line_count = 0;
 	ssize_t file_descriptor, read_length, file_size = 0;
 	struct stat file_status;
-	char *buffer = NULL, *file_name = get_history_filepath(information);
+	char *buffer = NULL, *file_name = GetHistoryFile(information);
 
 	if (!file_name)
 		return (0);
@@ -90,29 +90,29 @@ int read_history(info_t *information)
 		if (buffer[i] == '\n')
 		{
 			buffer[i] = '\0';
-			build_history_list(information, buffer + last, line_count++);
+			BuildHistoryList(information, buffer + last, line_count++);
 			last = i + 1;
 		}
 	}
 
 	if (last != i)
-		build_history_list(information, buffer + last, line_count++);
+		BuildHistoryList(information, buffer + last, line_count++);
 	free(buffer);
 	information->histcount = line_count;
 	while (information->histcount-- >= HIST_MAX)
 		delete_node_at_index(&(information->history), 0);
-	renumber_history(information);
+	BuildRenumberHistoryHistoryList(information);
 	return (information->histcount);
 }
 
 /**
- *Function: get_history_filepath - Retrieves the history file path
+ *Function: GetHistoryFile - Retrieves the history file path
  *@information: Parameter struct
  *
  *Description: Returns an allocated string containing the history file path
  *Return: Allocated string with the history file path
  */
-char *get_history_filepath(info_t *information)
+char *GetHistoryFile(info_t *information)
 {
 	char *history_path, *directory;
 
@@ -130,12 +130,12 @@ char *get_history_filepath(info_t *information)
 }
 
 /**
- *Function: renumber_history - Renumbers the history linked list after changes
+ *Function: BuildRenumberHistoryHistoryList - Renumbers the history linked list after changes
  *@information: Structure containing potential arguments. Used to maintain
  *
  *Return: The new histcount
  */
-int renumber_history(info_t *information)
+int BuildRenumberHistoryHistoryList(info_t *information)
 {
 	list_t *node = information->history;
 	int counter = 0;

@@ -55,12 +55,12 @@ char *convertNumber(long int num, int base, int flags)
 }
 
 /**
- * _erratoi - converts a string to an integer
+ * Erratoi - converts a string to an integer
  * @str: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *str)
+int Erratoi(char *str)
 {
 	int index = 0;
 	unsigned long int result = 0;
@@ -80,6 +80,24 @@ int _erratoi(char *str)
 			return (-1);
 	}
 	return (result);
+}
+
+/**
+ * RemoveComments - function replaces first instance of '#' with '\0'
+ * @buf: address of the string to modify
+ *
+ * Return: Always 0;
+ */
+void RemoveComments(char *buf)
+{
+	int i;
+
+	for (i = 0; buf[i] != '\0'; i++)
+		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
+		{
+			buf[i] = '\0';
+			break;
+		}
 }
 
 /**

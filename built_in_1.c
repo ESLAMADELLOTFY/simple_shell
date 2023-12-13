@@ -58,13 +58,13 @@ int print_user_alias(list_t *list_node)
 }
 
 /**
- * Function: display_history - displays the history list,
+ * Function: MyHistory - displays the history list,
  *                             with line numbers, starting at 0.
  * @data: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  * Return: Always 0
  */
-int display_history(info_t *data)
+int MyHistory(info_t *data)
 {
 	print_list(data->history);
 	return (0);
@@ -113,5 +113,3 @@ int unset_user_alias(info_t *data, char *str_val)
 	*ptr = ch;
 	return (ret);
 }
-
-

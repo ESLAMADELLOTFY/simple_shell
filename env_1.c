@@ -1,20 +1,20 @@
 #include "shell.h"
 
 /**
- *get_environment_variable environment variable
+ *Getenv -environment variable
  *@information: Structure containing potential arguments. Used to maintain
  *@name: environment variable name
  *
  *Return: the value of the environment variable
  */
-char *get_environment_variable(info_t *information, const char *name)
+char *Getenv(info_t *information, const char *name)
 {
 	list_t *node = information->env;
 	char *value;
 
 	while (node)
 	{
-		value = starts_with(node->str, name);
+		value = nodeStartsWith(node->str, name);
 		if (value && *value)
 			return (value);
 		node = node->next;
@@ -24,29 +24,29 @@ char *get_environment_variable(info_t *information, const char *name)
 }
 
 /**
- *populate_env_list - populates env linked list
+ *PopulateEnvList - populates env linked list
  *@info: Structure containing potential arguments. Used to maintain
  *constant function prototype.
  *Return: Always 0
  */
-int populate_env_list(info_t *info)
+int PopulateEnvList(info_t *info)
 {
 	list_t *node = NULL;
 	size_t i;
 
 	for (i = 0; environ[i]; i++)
-		add_node_end(&node, environ[i], 0);
+		AddNodeEnd(&node, environ[i], 0);
 	info->env = node;
 	return (0);
 }
 
 /**
- *set_environment_variable Initialize a  variable,
+ *Mysetenv -Initialize a  variable,
  *@information: Structure containing potential arguments. Used to maintain
  *
  *Return: Always 0
  */
-int set_environment_variable(info_t *information)
+int Mysetenv(info_t *information)
 {
 	if (information->argc != 3)
 	{
@@ -54,29 +54,29 @@ int set_environment_variable(info_t *information)
 		return (1);
 	}
 
-	if (_setenv(information, information->argv[1], information->argv[2]))
+	if (Setenv(information, information->argv[1], information->argv[2]))
 		return (0);
 	return (1);
 }
 
 /**
- *print_environment - prints the current environment
+ *Myenv - prints the current environment
  *@information: Structure containing potential arguments. Used to maintain
  *Return: Always 0
  */
-int print_environment(info_t *information)
+int Myenv(info_t *information)
 {
-	print_list_str(information->env);
+	PrintListStr(information->env);
 	return (0);
 }
 
 /**
- *unset_environment_variable
+ *unMysetenv -Structure potential.
  *@information: Structure containing potential.
  *
  *Return: Always 0
  */
-int unset_environment_variable(info_t *information)
+int unMysetenv(info_t *information)
 {
 	int l;
 
@@ -87,7 +87,7 @@ int unset_environment_variable(info_t *information)
 	}
 
 	for (l = 1; l <= information->argc; i++)
-		_unsetenv(information, information->argv[l]);
+		Unsetenv(information, information->argv[l]);
 
 	return (0);
 }

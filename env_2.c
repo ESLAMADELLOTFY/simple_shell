@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- *Function: set_environment_variable - Initialize a new environment variable,
+ *Function: Setenv - Initialize a new environment variable,
  *                                     or modify an existing one
  *@information: Structure containing potential arguments. Used to maintain
  *@varia: the string environment variable property
  *@value: the string environment variable value
  *Return: Always 0
  */
-int set_environment_variable(info_t *information, char *varia, char *value)
+int Setenv(info_t *information, char *varia, char *value)
 {
 	char *buffer = NULL;
 	list_t *node;
@@ -45,12 +45,12 @@ int set_environment_variable(info_t *information, char *varia, char *value)
 }
 
 /**
- *Function: unset_environment_variable - Remove an environment variable
+ *Function: Unsetenv - Remove an environment variable
  *@information: Structure containing potential arguments. Used to maintain
  *Return: 1 on delete, 0 otherwise
  *@varia: the string environment variable property
  */
-int unset_environment_variable(info_t *information, char *varia)
+int Unsetenv(info_t *information, char *varia)
 {
 	list_t *node = information->env;
 	size_t i = 0;
@@ -78,11 +78,11 @@ int unset_environment_variable(info_t *information, char *varia)
 }
 
 /**
- *Function: get_environment - returns the string array copy of our environment
+ *Function: GetEnviron - returns the string array copy of our environment
  *@information: Structure containing potential arguments. Used to maintain
  *Return: Pointer to the environment strings array
  */
-char **get_environment(info_t *information)
+char **GetEnviron(info_t *information)
 {
 	if (!information->environ || information->env_changed)
 	{
