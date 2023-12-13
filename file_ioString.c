@@ -106,28 +106,29 @@ int ReadHistory(info_t *information)
 }
 
 /**
- *Function: GetHistoryFile - Retrieves the history file path
- *@information: Parameter struct
+ * get_history_file - gets the history file
+ * @info: parameter struct
  *
- *Description: Returns an allocated string containing the history file path
- *Return: Allocated string with the history file path
+ * Return: allocated string containg history file
  */
-char *GetHistoryFile(info_t *information)
-{
-	char *history_path, *directory;
 
-	directory = _getenv(information, "HOME=");
-	if (!directory)
+char *get_history_file(info_t *info)
+{
+	char *buf, *dir;
+
+	dir = _getenv(info, "HOME=");
+	if (!dir)
 		return (NULL);
-	history_path = malloc(sizeof(char) * (_strlen(directory) + _strlen(HIST_FILE) + 2));
-	if (!history_path)
+	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
+	if (!buf)
 		return (NULL);
-	history_path[0] = '\0';
-	_strcpy(history_path, directory);
-	_strcat(history_path, "/");
-	_strcat(history_path, HIST_FILE);
-	return (history_path);
+	buf[0] = 0;
+	_strcpy(buf, dir);
+	_strcat(buf, "/");
+	_strcat(buf, HIST_FILE);
+	return (buf);
 }
+
 
 /**
  *Function: BuildRenumberHistoryHistoryList - Renumbers the history linked list after changes

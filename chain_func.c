@@ -93,7 +93,7 @@ int ReplaceAllias(info_t *information)
 		ptr = _strdup(ptr + 1);
 		if (!ptr)
 			return (0);
-		information->argv[0] = p;
+		information->argv[0] = ptr;
 	}
 	return (1);
 }

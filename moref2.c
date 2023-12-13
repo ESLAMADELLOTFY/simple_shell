@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * printErrorMessage - prints an error message
+ * PrintErrorMessage - prints an error message
  * @info: the parameter & return info struct
- * @errorString: string containing specified error type
+ * @estr: string containing specified error type
  * Return: 0 if no numbers in string, converted number otherwise
  *        -1 on error
  */
-void printErrorMessage(info_t *info, char *errorString)
+void PrintErrorMessage(info_t *info, char *estr)
 {
 	_eputs(info->fname);
 	_eputs(": ");
@@ -69,7 +69,7 @@ int Erratoi(char *str)
 		str++;  /* TODO: why does this make main return 255? */
 	for (index = 0;  str[index] != '\0'; index++)
 	{
-		if (str[index] >= '0' && s[index] <= '9')
+		if (str[index] >= '0' && str[index] <= '9')
 		{
 			result *= 10;
 			result += (str[index] - '0');
@@ -124,9 +124,9 @@ int printLineNumber(int num, int fd)
 	else
 		_abs_ = num;
 	current = _abs_;
-	for (index = 1000000000; i > 1; index /= 10)
+	for (index = 1000000000; index > 1; index /= 10)
 	{
-		if (_abs_ / i)
+		if (_abs_ / index)
 		{
 			__putchar('0' + current / index);
 			count++;

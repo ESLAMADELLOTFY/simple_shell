@@ -19,7 +19,7 @@ void ForkCmd(info_t *information)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(info->path, info->argv, get_environ(info)) == -1)
+		if (execve(information->path, information->argv, get_environ(information)) == -1)
 		{
 			free_info(information, 1);
 			if (errno == EACCES)
@@ -80,40 +80,6 @@ void find_cmd(info_t *information)
 			print_error(information, " it doesn't not found\n");
 		}
 	}
-}
-
-/**
- * FindBuiltIn - Finds and executes if available.
- * @information: the parameter & return info struct
- *
- * Return: -1 if builtin not found,
- *			0 if builtin executed successfully,
- *			1 if builtin found but not successful,
- *			-2 if builtin signals exit()
- */
-int FindBuiltIn(info_t *information)
-{
-	int i, builtinret = -1;
-	builtin_table builtInTabl[] = {
-		{"exit", _myexit},
-		{"env", _myenv},
-		{"help", _myhelp},
-		{"history", _myhistory},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
-		{"alias", _myalias},
-		{NULL, NULL}
-	};
-
-	for (i = 0; builtInTabl[i].type; i++)
-		if (_strcmp(information->argv[0], builtInTabl[i].type) == 0)
-		{
-			information->line_count++;
-			builtinret = builtInTabl[i].func(information);
-			break;
-		}
-	return (builtinret);
 }
 
 /**

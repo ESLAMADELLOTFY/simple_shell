@@ -59,7 +59,7 @@ void _eputs(char *str_value)
 		return;
 	while (str_value[z] != '\0')
 	{
-		_eputchar(str_value[i]);
+		_eputchar(str_value[z]);
 		z++;
 	}
 }

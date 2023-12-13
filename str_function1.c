@@ -32,29 +32,7 @@ char *starts_with(const char *haystack, const char *needle)
 			return (NULL);
 	return ((char *)haystack);
 }
-/**
- * _strcat - function that concatenates dest and src
- * @dest: destnation buffer
- * @src:  source buffer
- *
- * Return: ptr to dest buffer
- */
-char *_strcat(char *dest, const char *src)
-{
-	char *dstcpy;
-	const char *srccpy;
 
-	dstcpy = dest;
-	srccpy = src;
-
-	while (*dstcpy != '\0')
-		dstcpy++;
-
-	while (*srccpy != '\0')
-		*dstcpy++ = *srccpy++;
-	*dstcpy = '\0';
-	return (dest);
-}
 /**
  * _strcmp - performs lexicogarphic comparison of two strangs.
  * @s_1:  first string
@@ -77,3 +55,21 @@ int _strcmp(char *s_1, char *s_2)
 		return (*s_1 < *s_2 ? -1 : 1);
 }
 
+/**
+ * _strcat - concatenates two strings
+ * @dest: the destination buffer
+ * @src: the source buffer
+ *
+ * Return: pointer to destination buffer
+ */
+char *_strcat(char *dest, char *src)
+{
+	char *ret = dest;
+
+	while (*dest)
+		dest++;
+	while (*src)
+		*dest++ = *src++;
+	*dest = *src;
+	return (ret);
+}

@@ -86,7 +86,7 @@ int unMysetenv(info_t *information)
 		return (1);
 	}
 
-	for (l = 1; l <= information->argc; i++)
+	for (l = 1; l <= information->argc; l++)
 		Unsetenv(information, information->argv[l]);
 
 	return (0);
