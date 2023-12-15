@@ -186,9 +186,11 @@ int set_user_alias(info_t *data, char *);
 int unset_user_alias(info_t *data, char *);
 
 /* getline.c module */
-ssize_t get_input(info_t *);
-int _getline(info_t *, char **, size_t *);
+ssize_t readBuffer(info_t *, char *, size_t *);
+int GetLine(info_t *, char **, size_t *);
+ssize_t bufferInput(info_t *, char **, size_t *);
 void sigintHandler(int);
+ssize_t GetInput(info_t *);
 
 /* info.c module */
 void clear_info(info_t *);
@@ -208,10 +210,10 @@ int Unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
 /* file_io_functions.c */
-char *get_history_file(info_t *info);
-int write_history(info_t *info);
-int read_history(info_t *info);
-int build_history_list(info_t *info, char *buf, int linecount);
+char *GetHistoryFile(info_t *info);
+int WriteHistory(info_t *);
+int ReadHistory(info_t *);
+int BuildRenumberHistoryHistoryList(info_t *info, char *buf, int linecount);
 int renumber_history(info_t *info);
 
 /* liststr.c module */
