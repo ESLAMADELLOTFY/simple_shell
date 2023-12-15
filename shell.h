@@ -116,7 +116,7 @@ void ForkCmd(info_t *);
 void find_cmd(info_t *);
 int FindBuiltIn(info_t *);
 void fork_cmd(info_t *);
-
+int h_s_h(info_t *in_fo, char **av);
 /* path.c */
 int is_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
@@ -153,9 +153,9 @@ char **STR_TOW(char *, char *);
 char **STR_TOW2(char *, char);
 
 /* memory_functions */
-char *_memset(char *, char, unsigned int);
-void f_free(char **);
-void *_realloc(void *, unsigned int, unsigned int);
+char *Memset(char *, char, unsigned int);
+void Ffree(char **);
+void *Realloc(void *, unsigned int, unsigned int);
 
 /* memory_functions2.c */
 int be_free(void **);
@@ -221,14 +221,14 @@ list_t *add_node(list_t **, const char *, int);
 list_t *AddNodeEnd(list_t **, const char *, int);
 size_t PrintListStr(const list_t *);
 int DeleteEndAtIndex(list_t **, unsigned int);
-void free_list(list_t **);
+void FreeList(list_t **);
 
 /* liststr2.c module */
-size_t list_len(const list_t *);
-char **list_To_Strings(list_t *);
-size_t print_list(const list_t *);
-list_t *node_starts_with(list_t *, char *, char);
-ssize_t get_node_index(list_t *, list_t *);
+ssize_t get_node_index(list_t *hea_d, list_t *node);
+size_t List_print(const list_t *hd);
+char **list_To_Strings(list_t *h_d);
+list_t *node_starts_with(list_t *node, char *pre, char cnn);
+size_t LenList(const list_t *h_ead);
 
 /* chain.c */
 int IsChain(info_t *, char *, size_t *);

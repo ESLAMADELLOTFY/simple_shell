@@ -59,11 +59,11 @@ void FreeInfo(info_t *info_struct, int all)
 		if (!info_struct->cmd_buf)
 			free(info_struct->arg);
 		if (info_struct->env)
-			free_list(&(info_struct->env));
+			FreeList(&(info_struct->env));
 		if (info_struct->history)
-			free_list(&(info_struct->history));
+			FreeList(&(info_struct->history));
 		if (info_struct->alias)
-			free_list(&(info_struct->alias));
+			FreeList(&(info_struct->alias));
 		f_free(info_struct->environ);
 			info_struct->environ = NULL;
 		be_free((void **)info_struct->cmd_buf);
@@ -72,4 +72,3 @@ void FreeInfo(info_t *info_struct, int all)
 		_putchar(BUF_FLUSH);
 	}
 }
-

@@ -21,7 +21,7 @@ void ForkCmd(info_t *information)
 	{
 		if (execve(information->path, information->argv, GetEnviron(information)) == -1)
 		{
-			f_free(information, 1);
+			FreeInfo(information, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);
@@ -116,3 +116,45 @@ int FindBuiltIn(info_t *information)
 	return (builtinret);
 }
 
+/**
+ * h_s_h - loop of main shell
+ * @in_fo: the parameter & return info struct
+ * @av: the argument vector from main()
+ *
+ * Return: 0 on success, 1 on error, or error code
+ */
+int h_s_h(info_t *in_fo, char **av)
+{
+	ssize_t r = 0;
+	int builtin_ret = 0;
+
+	while (r != -1 && builtin_ret != -2)
+	{
+		ClearInfo(in_fo);
+		if (interactive(in_fo))
+			_puts("$ ");
+		_eputchar(BUF_FLUSH);
+		r = GetInput(in_fo);
+		if (r != -1)
+		{
+			SetInfo(in_fo, av);
+			builtin_ret = FindBuiltIn(in_fo);
+			if (builtin_ret == -1)
+				find_cmd(in_fo);
+		}
+		else if (interactive(in_fo))
+			_putchar('\n');
+		FreeInfo(in_fo, 0);
+	}
+	WriteHistory(in_fo);
+	FreeInfo(in_fo, 1);
+	if (!interactive(in_fo) && in_fo->status)
+		exit(in_fo->status);
+	if (builtin_ret == -2)
+	{
+		if (in_fo->err_num == -1)
+			exit(in_fo->status);
+		exit(in_fo->err_num);
+	}
+	return (builtin_ret);
+}
