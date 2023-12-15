@@ -134,7 +134,7 @@ int _putsfd(char *str, int fd);
 /* string_functions.c */
 int _strlen(char *);
 int _strcmp(char *, char *);
-char *nodeStartsWith(const char *, const char *);
+char *starts_with(const char *, const char *);
 char *_strcat(char *, char *);
 
 /* string_functions2.c */
@@ -203,8 +203,8 @@ int un_mysetenv(info_t *);
 int PopulateEnvList(info_t *);
 
 /* env2.c module */
-char **get_environ(info_t *);
-int _unsetenv(info_t *, char *);
+char **GetEnviron(info_t *);
+int Unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
 /* file_io_functions.c */
@@ -217,15 +217,15 @@ int renumber_history(info_t *info);
 /* liststr.c module */
 list_t *add_node(list_t **, const char *, int);
 list_t *AddNodeEnd(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
-int delete_node_at_index(list_t **, unsigned int);
+size_t PrintListStr(const list_t *);
+int DeleteEndAtIndex(list_t **, unsigned int);
 void free_list(list_t **);
 
 /* liststr2.c module */
 size_t list_len(const list_t *);
-char **list_to_strings(list_t *);
+char **list_To_Strings(list_t *);
 size_t print_list(const list_t *);
-list_t *nodeStartsWith(list_t *, char *, char);
+list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
 /* chain.c */

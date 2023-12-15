@@ -28,7 +28,7 @@ int handle_alias(info_t *data)
 		if (ptr)
 			set_user_alias(data, data->argv[i]);
 		else
-			print_user_alias(nodeStartsWith(data->alias, data->argv[i], '='));
+			print_user_alias(node_starts_with(data->alias, data->argv[i], '='));
 	}
 
 	return (0);
@@ -88,7 +88,7 @@ int set_user_alias(info_t *data, char *str_val)
 		return (unset_user_alias(data, str_val));
 
 	unset_user_alias(data, str_val);
-	return (add_node_end(&(data->alias), str_val, 0) == NULL);
+	return (AddNodeEnd(&(data->alias), str_val, 0) == NULL);
 }
 
 /**
@@ -108,8 +108,8 @@ int unset_user_alias(info_t *data, char *str_val)
 		return (1);
 	ch = *ptr;
 	*ptr = 0;
-	ret = delete_node_at_index(&(data->alias),
-		get_node_index(data->alias, nodeStartsWith(data->alias, str_val, -1)));
+	ret = DeleteEndAtIndex(&(data->alias),
+		get_node_index(data->alias, node_starts_with(data->alias, str_val, -1)));
 	*ptr = ch;
 	return (ret);
 }

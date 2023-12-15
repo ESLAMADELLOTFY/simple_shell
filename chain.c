@@ -83,7 +83,7 @@ int ReplaceAllias(info_t *information)
 
 	for (index = 0; index < 10; index++)
 	{
-		node = nodeStartsWith(information->alias, information->argv[0], '=');
+		node = node_starts_with(information->alias, information->argv[0], '=');
 		if (!node)
 			return (0);
 		free(information->argv[0]);
@@ -116,8 +116,8 @@ int ReplaceVariables(info_t *in_fo)
 
 		if (!_strcmp(in_fo->argv[index], "$?"))
 		{
-			replaceString(&(in_fo->argv[index]),
-			    _strdup(convert_number(in_fo->status, 10, 0)));
+		node = node_starts_with(in_fo->env, &in_fo->argv[index][1], '=');
+		_strdup(convert_number(in_fo->status, 10, 0));
 			continue;
 		}
 		if (!_strcmp(in_fo->argv[index], "$$"))
@@ -126,7 +126,7 @@ int ReplaceVariables(info_t *in_fo)
 				_strdup(convert_number(getpid(), 10, 0)));
 			continue;
 		}
-		node = nodeStartsWith(in_fo->env, &in_fo->argv[index][1], '=');
+		node = node_starts_with(in_fo->env, &in_fo->argv[index][1], '=');
 		if (node)
 		{
 			replaceString(&(in_fo->argv[index]),
@@ -152,4 +152,3 @@ int replaceString(char **o, char *n)
 	*o = n;
 	return (1);
 }
-
