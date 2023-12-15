@@ -161,10 +161,10 @@ void *Realloc(void *, unsigned int, unsigned int);
 int be_free(void **);
 
 /* more_functions.c */
-int interactive(info_t *);
+int isInteractiveMode(info_t *);
 int delim_is(char, char *);
-int _isalpha(int);
-int _atoi(char *);
+int _isAlphabetic(int);
+int _convertStringToInt(char *);
 
 /* more_functions2.c */
 int Erratoi(char *);

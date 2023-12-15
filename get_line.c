@@ -66,7 +66,7 @@ int GetLine(info_t *information, char **ptr, size_t *length)
 
 	c = _strchr(buffer + index_i, '\n');
 	k = c ? 1 + (unsigned int)(c - buffer) : len;
-	new_pointer_p = _realloc(pointer_p, size_read, size_read ? size_read + k : k + 1);
+	new_pointer_p = Realloc(pointer_p, size_read, size_read ? size_read + k : k + 1);
 	if (!new_pointer_p)
 		return (pointer_p ? (free(pointer_p), -1) : -1);
 

@@ -51,7 +51,7 @@ void ClearInfo(info_t *info_struct)
  */
 void FreeInfo(info_t *info_struct, int all)
 {
-	f_free(info_struct->argv);
+	Ffree(info_struct->argv);
 	info_struct->argv = NULL;
 	info_struct->path = NULL;
 	if (all)
@@ -64,7 +64,7 @@ void FreeInfo(info_t *info_struct, int all)
 			FreeList(&(info_struct->history));
 		if (info_struct->alias)
 			FreeList(&(info_struct->alias));
-		f_free(info_struct->environ);
+		Ffree(info_struct->environ);
 			info_struct->environ = NULL;
 		be_free((void **)info_struct->cmd_buf);
 		if (info_struct->readfd > 2)
