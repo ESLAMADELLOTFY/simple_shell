@@ -63,7 +63,7 @@ void find_cmd(info_t *information)
 	if (!q)
 		return;
 
-	path = where_path(information, _getenv(information, "PATH="), information->argv[0]);
+	path = FindPath(information, _getenv(information, "PATH="), information->argv[0]);
 	if (path)
 	{
 		information->path = path;
@@ -72,7 +72,7 @@ void find_cmd(info_t *information)
 	else
 	{
 		if ((isInteractiveMode(information) || _getenv(information, "PATH=")
-			|| information->argv[0][0] == '/') && is_cmd(information, information->argv[0]))
+			|| information->argv[0][0] == '/') && IsCmd(information, information->argv[0]))
 			ForkCmd(information);
 		else if (*(information->arg) != '\n')
 		{
