@@ -118,9 +118,9 @@ int FindBuiltIn(info_t *);
 void fork_cmd(info_t *);
 int h_s_h(info_t *in_fo, char **av);
 /* path.c */
-int is_cmd(info_t *, char *);
-char *dup_chars(char *, int, int);
-char *where_path(info_t *, char *, char *);
+int IsCmd(info_t *information, char *file_path);
+char *DupChars(char *path_string, int start_index, int stop_index);
+char *FindPath(info_t *info_struct, char *path_string, char *command);
 
 /* loophsh.c */
 int loophsh(char **);
@@ -168,10 +168,10 @@ int _convertStringToInt(char *);
 
 /* more_functions2.c */
 int Erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
+void print_error(info_t *info, char *estr);
+int printLineNumber(int num, int fd);
+char *convert_number(long int num, int base, int flags);
+void remove_comments(char *buf);
 
 /* built_in_2.c */
 int help_me(info_t  *);

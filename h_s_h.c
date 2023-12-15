@@ -71,7 +71,7 @@ void find_cmd(info_t *information)
 	}
 	else
 	{
-		if ((interactive(information) || _getenv(information, "PATH=")
+		if ((isInteractiveMode(information) || _getenv(information, "PATH=")
 			|| information->argv[0][0] == '/') && is_cmd(information, information->argv[0]))
 			ForkCmd(information);
 		else if (*(information->arg) != '\n')
@@ -131,7 +131,7 @@ int h_s_h(info_t *in_fo, char **av)
 	while (r != -1 && builtin_ret != -2)
 	{
 		ClearInfo(in_fo);
-		if (interactive(in_fo))
+		if (isInteractiveMode(in_fo))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		r = GetInput(in_fo);
@@ -142,13 +142,13 @@ int h_s_h(info_t *in_fo, char **av)
 			if (builtin_ret == -1)
 				find_cmd(in_fo);
 		}
-		else if (interactive(in_fo))
+		else if (isInteractiveMode(in_fo))
 			_putchar('\n');
 		FreeInfo(in_fo, 0);
 	}
 	WriteHistory(in_fo);
 	FreeInfo(in_fo, 1);
-	if (!interactive(in_fo) && in_fo->status)
+	if (!isInteractiveMode(in_fo) && in_fo->status)
 		exit(in_fo->status);
 	if (builtin_ret == -2)
 	{
