@@ -112,15 +112,15 @@ typedef struct builtin
 
 
 /* hsh.c */
-int hsh(info_t *, char **);
-int find_builtin(info_t *);
+void ForkCmd(info_t *);
 void find_cmd(info_t *);
+int FindBuiltIn(info_t *);
 void fork_cmd(info_t *);
 
 /* path.c */
 int is_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
-char *find_path(info_t *, char *, char *);
+char *where_path(info_t *, char *, char *);
 
 /* loophsh.c */
 int loophsh(char **);
@@ -149,20 +149,20 @@ char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
 
 /* string_functions4.c */
-char **strtow(char *, char *);
-char **strtow2(char *, char);
+char **STR_TOW(char *, char *);
+char **STR_TOW2(char *, char);
 
 /* memory_functions */
 char *_memset(char *, char, unsigned int);
-void ffree(char **);
+void f_free(char **);
 void *_realloc(void *, unsigned int, unsigned int);
 
 /* memory_functions2.c */
-int bfree(void **);
+int be_free(void **);
 
 /* more_functions.c */
 int interactive(info_t *);
-int is_delim(char, char *);
+int delim_is(char, char *);
 int _isalpha(int);
 int _atoi(char *);
 
@@ -193,9 +193,9 @@ void sigintHandler(int);
 ssize_t GetInput(info_t *);
 
 /* info.c module */
-void clear_info(info_t *);
-void set_info(info_t *, char **);
-void free_info(info_t *, int);
+void SetInfo(info_t *, char **);
+void ClearInfo(info_t *);
+void FreeInfo(info_t *, int);
 
 /* env.c module */
 char *_getenv(info_t *, const char *);
