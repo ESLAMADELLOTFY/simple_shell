@@ -119,7 +119,7 @@ ssize_t bufferInput(info_t *information, char **buffer, size_t *length)
 
 			information->linecount_flag = 1;
 			remove_comments(*buffer);
-			BuildRenumberHistoryHistoryList(information, *buffer, information->histcount++);
+			BuildHistoryList(information, *buffer, information->histcount++);
 			if (_strchr(*buffer, ';'))
 			{ 	*length = bytes_read;
 				information->cmd_buf = buffer;

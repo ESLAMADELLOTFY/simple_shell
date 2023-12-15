@@ -213,8 +213,8 @@ int _setenv(info_t *, char *, char *);
 char *GetHistoryFile(info_t *info);
 int WriteHistory(info_t *);
 int ReadHistory(info_t *);
-int BuildRenumberHistoryHistoryList(info_t *info, char *buf, int linecount);
-int renumber_history(info_t *info);
+int BuildRenumberHistoryHistoryList(info_t *);
+int BuildHistoryList(info_t *, char *buf, int );
 
 /* liststr.c module */
 list_t *add_node(list_t **, const char *, int);

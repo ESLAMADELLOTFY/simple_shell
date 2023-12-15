@@ -149,4 +149,3 @@ int BuildRenumberHistoryHistoryList(info_t *information)
 
 	return (information->histcount = counter);
 }
-
