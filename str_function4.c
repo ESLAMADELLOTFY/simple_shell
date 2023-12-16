@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * split_string - splits a string into words. Repeat delimiters are ignored
+ * STR_TOW - splits a string into words. Repeat delimiters are ignored
  * @str: the input string to be split
  * @delim: the delimiter string
  * Return: a pointer to an array of strings, or NULL on failure
  */
-char **split_string(char *str, char *delim)
+char **STR_TOW(char *str, char *delim)
 {
 	int i, j, k, m, word_count = 0;
 	char **words;
@@ -55,12 +55,12 @@ char **split_string(char *str, char *delim)
 }
 
 /**
- * split_string_v2 - splits a string into words using a single delimiter
+ * STR_TOW2 - splits a string into words using a single delimiter
  * @str: the input string to be split
  * @delim: the delimiter character
  * Return: a pointer to an array of strings, or NULL on failure
  */
-char **split_string_v2(char *str, char delim)
+char **STR_TOW2(char *str, char delim)
 {
 	int i, j, k, m, word_count = 0;
 	char **words;
@@ -105,5 +105,3 @@ char **split_string_v2(char *str, char delim)
 	words[j] = NULL;
 	return (words);
 }
-
-
